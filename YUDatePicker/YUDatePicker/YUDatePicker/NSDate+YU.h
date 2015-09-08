@@ -14,7 +14,7 @@
 
 + (NSDate *)dateFromString:(NSString *)string withFormat:(NSString *)format;
 
-+(NSDate *)dateWithYea:(NSInteger)yeaNum;
++ (NSDate *)dateWithYea:(NSInteger)yeaNum;
 
 + (NSInteger)daysfromYear:(NSInteger)year andMonth:(NSInteger)month;
 

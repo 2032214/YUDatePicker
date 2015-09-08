@@ -24,12 +24,13 @@
 +(unsigned)UnitFlags
 {
     unsigned unitFlags = 0;
-    if (isIOS8) {
-        unitFlags = kCFCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|kCFCalendarUnitHour|kCFCalendarUnitMinute|kCFCalendarUnitSecond|NSCalendarUnitWeekday|kCFCalendarUnitWeekdayOrdinal;
-        
-    }else{
-        unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSWeekOfMonthCalendarUnit | NSWeekOfYearCalendarUnit ;
-    }
+    
+#ifdef isIOS8
+            unitFlags = kCFCalendarUnitEra|NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|kCFCalendarUnitHour|kCFCalendarUnitMinute|kCFCalendarUnitSecond|NSCalendarUnitWeekday|kCFCalendarUnitWeekdayOrdinal;
+#else
+            unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit | NSWeekCalendarUnit | NSWeekdayCalendarUnit | NSWeekOfMonthCalendarUnit | NSWeekOfYearCalendarUnit ;
+#endif
+
     return unitFlags;
 }
 
@@ -53,7 +54,7 @@
 }
 
 +(NSDate*)dateWithYea:(NSInteger)yeaNum{
-    NSCalendar *_greCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *_greCalendar = [NSCalendar currentCalendar];
     NSDateComponents *dateComponentsAsTimeQantum = [[NSDateComponents alloc] init];
     [dateComponentsAsTimeQantum setYear:yeaNum];
     NSDate *dateFromDateComponentsAsTimeQantum = [_greCalendar dateFromComponents:dateComponentsAsTimeQantum];
