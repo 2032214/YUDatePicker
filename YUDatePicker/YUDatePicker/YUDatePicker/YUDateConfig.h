@@ -24,17 +24,17 @@
 #define I2S(x) ((x)==NOT_DEFINED?@"":[NSString stringWithFormat:@"%d",((int)x)])
 
 //config
-#define YUPICKER_MAXDATE 2050
+#define YU_PICKER_MAXDATE 2050
 
-#define YUPICKER_MINDATE 1970
+#define YU_PICKER_MINDATE 1970
 
-#define YUPICKER_MONTH 12
+#define YU_PICKER_MONTH 12
 
-#define YUPICKER_DAY 31
+#define YU_PICKER_DAY 31
 
-#define YUPICKER_HOUR 24
+#define YU_PICKER_HOUR 24
 
-#define YUPICKER_MINUTE 60
+#define YU_PICKER_MINUTE 60
 
 #define YU_LIGHTGRAY [UIColor lightGrayColor]//不可选颜色( date < min || date > max)
 

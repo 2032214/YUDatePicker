@@ -8,10 +8,10 @@
 
 #import "YUDatePicker.h"
 
-#define YUNUMBEROFROWS 16384
-#define YUROSE_NUMBER 99
-#define PICKERHIGHR  216
-#define TOOLBARHIGHT 44
+#define YU_NUMBEROFROWS 16384
+#define YU_ROSE_NUMBER 99
+#define YU_PICKERHIGHR  216
+#define YU_TOOLBARHIGHT 44
 
 @interface YUDatePicker()<UIPickerViewDelegate,UIPickerViewDataSource>
 {
@@ -42,7 +42,7 @@
         self.backgroundColor = [UIColor whiteColor];
         if (self.frame.size.height<216 || self.frame.size.width<320)
         {
-            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, PICKERHIGHR);
+            self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, YU_PICKERHIGHR);
         }
     }
     return self;
@@ -52,7 +52,7 @@
 {
     self = [super init];
     if (self) {
-        self.frame = CGRectMake(0, 0, 0, PICKERHIGHR);
+        self.frame = CGRectMake(0, 0, 0, YU_PICKERHIGHR);
     }
     return self;
 }
@@ -90,7 +90,7 @@
 -(void)setMinimumDate:(NSDate *)minimumDate
 {
     if (!minimumDate) {
-        _minimumDate = [NSDate dateWithYea:YUPICKER_MINDATE];
+        _minimumDate = [NSDate dateWithYea:YU_PICKER_MINDATE];
     }else{
         _minimumDate = minimumDate;
     }
@@ -99,7 +99,7 @@
 -(void)setMaximumDate:(NSDate *)maximumDate
 {
     if (!_maximumDate) {
-        _maximumDate = [NSDate dateWithYea:YUPICKER_MAXDATE];
+        _maximumDate = [NSDate dateWithYea:YU_PICKER_MAXDATE];
     }else{
         _maximumDate = maximumDate;
     }
@@ -119,7 +119,7 @@
     if (currentDate) {
         _currentDate = currentDate;
         NSDateComponents *d = [NSDate dateComponentsFromDate:_currentDate];
-        self.yearIndex = d.year-YUPICKER_MINDATE;
+        self.yearIndex = d.year-YU_PICKER_MINDATE;
         self.monthIndex = d.month -1;
         self.dayIndex = d.day -1;
         self.hourIndex = d.hour;
@@ -137,18 +137,18 @@
     self.minuteArray = [NSMutableArray array];
     self.amPmArray = @[@"AM",@"PM"];
     
-    for (int i=0; i<YUPICKER_MINUTE; i++) {
+    for (int i=0; i<YU_PICKER_MINUTE; i++) {
         NSString *num = [NSString stringWithFormat:@"%02d",i];
-        if (0<i && i<=YUPICKER_MONTH)
+        if (0<i && i<=YU_PICKER_MONTH)
             [self.monthArray addObject:num];
-        if (0<i && i<=YUPICKER_DAY)
+        if (0<i && i<=YU_PICKER_DAY)
             [self.dayArray addObject:num];
-        if (i<YUPICKER_HOUR)
+        if (i<YU_PICKER_HOUR)
             [self.hourArray addObject:num];
         [self.minuteArray addObject:num];
     }
     
-    for (int i=YUPICKER_MINDATE; i<YUPICKER_MAXDATE; i++) {
+    for (int i=YU_PICKER_MINDATE; i<YU_PICKER_MAXDATE; i++) {
         NSString *num = [NSString stringWithFormat:@"%d",i];
         [self.yearArray addObject:num];
     }
@@ -159,7 +159,7 @@
     
     if (self.datePickerMode >=  UIYUDatePickerModeDateYYYYMMDDHHmm ) {
         if (!PickerView) {
-            PickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, TOOLBARHIGHT-22, self.frame.size.width, PICKERHIGHR)];
+            PickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, YU_TOOLBARHIGHT-22, self.frame.size.width, YU_PICKERHIGHR)];
             PickerView.showsSelectionIndicator = YES;
             //            PickerView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
             PickerView.backgroundColor = [UIColor clearColor];
@@ -171,7 +171,7 @@
         
     }else{
         
-        UIDatePicker *datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0,TOOLBARHIGHT-22,self.frame.size.width,PICKERHIGHR-TOOLBARHIGHT)];
+        UIDatePicker *datePicker = [ [ UIDatePicker alloc] initWithFrame:CGRectMake(0,YU_TOOLBARHIGHT-22,self.frame.size.width,YU_PICKERHIGHR-YU_TOOLBARHIGHT)];
         datePicker.datePickerMode = (UIDatePickerMode)self.datePickerMode;
         datePicker.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin;
         [datePicker setLocale:self.locale?self.locale:[[NSLocale alloc]initWithLocaleIdentifier:@"zh_CN"]];
@@ -187,7 +187,7 @@
     }
     
     if (self.showToolbar) {
-        _actionToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, TOOLBARHIGHT)];
+        _actionToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, 320, YU_TOOLBARHIGHT)];
         _actionToolbar.barStyle = UIBarStyleDefault;
         [_actionToolbar sizeToFit];
         
@@ -225,7 +225,7 @@
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
-    return YUNUMBEROFROWS;
+    return YU_NUMBEROFROWS;
 }
 
 #pragma mark - UIPickerViewDelegate
@@ -264,7 +264,7 @@
             if (component == 1) {
                 self.monthIndex = row%(count=self.monthArray.count);
                 [self setDays:self.febNumber];
-                [pickerView selectRow:self.dayIndex + self.dayArray.count * YUROSE_NUMBER inComponent:2 animated:NO];
+                [pickerView selectRow:self.dayIndex + self.dayArray.count * YU_ROSE_NUMBER inComponent:2 animated:NO];
             }
             if (component == 2) {
                 self.dayIndex = row%(count=self.dayArray.count);
@@ -359,7 +359,7 @@
         if (i%2) {
             [PickerView selectRow:[arry[i]integerValue]+row inComponent:i/2 animated:animated];
         }else{
-            row = [arry[i]integerValue]*YUROSE_NUMBER;
+            row = [arry[i]integerValue]*YU_ROSE_NUMBER;
         }
     }
 }
@@ -502,16 +502,16 @@
     }
     
     [self setFrame:CGRectMake(0,
-                              view.frame.size.height + PICKERHIGHR,
+                              view.frame.size.height + YU_PICKERHIGHR,
                               view.frame.size.width,
-                              PICKERHIGHR)];
+                              YU_PICKERHIGHR)];
     
     [UIView animateWithDuration:0.35 animations:^{
         [self setFrame:CGRectMake(
                                   CGRectGetMinX(self.frame),
-                                  CGRectGetHeight(view.frame)-PICKERHIGHR,
+                                  CGRectGetHeight(view.frame) - YU_PICKERHIGHR,
                                   view.frame.size.width,
-                                  PICKERHIGHR)];
+                                  YU_PICKERHIGHR)];
     }];
     [view addSubview:self];
     
@@ -526,7 +526,7 @@
         [self setFrame:CGRectMake(0,
                                   800+ self.frame.size.height,
                                   self.frame.size.width,
-                                  PICKERHIGHR)];
+                                  YU_PICKERHIGHR)];
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
     }];
